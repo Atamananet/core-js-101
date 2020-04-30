@@ -312,11 +312,9 @@ function getDigitalRoot(/* num */) {
  */
 function isBracketsBalanced(string) {
   let str = string;
-  const stack = ['[]', '{}', '<>', '()'];
-  let condition = stack.some((i) => str.includes(i));
-  while (condition) {
-    stack.forEach((value) => { str = str.replace(value, ''); });
-    condition = stack.some((i) => str.includes(i));
+  const regexp = RegExp(/\[\]|\{\}|\(\)|<>/);
+  while (regexp.test(str)) {
+    str = str.replace(regexp, '');
   }
   return !str;
 }
