@@ -340,8 +340,8 @@ function isBracketsBalanced(string) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -357,8 +357,20 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const splited = pathes.map((path) => path.split('/'));
+  const path = splited[0];
+  const home = [];
+  for (let i = 0; i < path.length; i += 1) {
+    for (let j = 1; j < pathes.length; j += 1) {
+      if (splited[j][i] === path[i]) {
+        if (j === pathes.length - 1) {
+          home.push(path[i]);
+        }
+      }
+    }
+  }
+  return home.length ? `${home.join('/')}/` : '';
 }
 
 
@@ -415,8 +427,26 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  function isWin(arr, char) {
+    if (arr.some((str) => str.every((i) => (i === char && str.length === 3)))
+      || arr.every((str) => (str[0] === char))
+      || arr.every((str) => (str[1] === char))
+      || arr.every((str) => (str[2] === char))) {
+      return char;
+    }
+    for (let i = 0; i <= 3; i += 1) {
+      if (arr[i][i] !== char) { break; }
+      if (i === 2) { return char; }
+    }
+    for (let i = 2; i >= 0; i -= 1) {
+      if (arr[2 - i][i] !== char) { break; }
+      if (i === 0) { return char; }
+    }
+
+    return undefined;
+  }
+  return isWin(position, 'X') || isWin(position, '0');
 }
 
 

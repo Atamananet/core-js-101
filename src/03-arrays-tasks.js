@@ -561,7 +561,7 @@ function group(array, country, city) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, fn) {
-  return arr.map((i) => fn(i)).flat(Infinity);
+  return arr.map((i) => fn(i)).reduce((acc, val) => [...acc, ...val], []);
 }
 
 
